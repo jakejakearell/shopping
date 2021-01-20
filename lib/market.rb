@@ -31,4 +31,19 @@ class Market
     end
     sorted_items.uniq.sort
   end
+
+  def total_inventory
+    @vendors.reduce(Hash.new) do |memo, vendor|
+      vendor.inventory.each do |item|
+        if memo[item[0]].nil?
+          memo[item[0]] = {vendors: [],
+                          quantity: 0}
+        end
+          memo[item[0]][:vendors] << vendor.name
+          memo[item[0]][:quantity] += item.last
+      end
+    memo
+    end
+  end
+
 end

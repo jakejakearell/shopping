@@ -19,7 +19,7 @@ class Market
 
   def vendors_that_sell(item)
     @vendors.find_all do |vendor|
-      vendor.inventory.include? item
+      vendor.inventory_includes? item
     end
   end
 
@@ -39,8 +39,8 @@ class Market
           memo[item[0]] = {vendors: [],
                           quantity: 0}
         end
-          memo[item[0]][:vendors] << vendor.name
-          memo[item[0]][:quantity] += item.last
+        memo[item[0]][:vendors] << vendor.name
+        memo[item[0]][:quantity] += item.last
       end
     memo
     end

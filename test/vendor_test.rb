@@ -39,6 +39,9 @@ class VendorTest < Minitest::Test
   end
 
   def test_potential_revenue
+    vendor1 = Vendor.new("paul pizza")
+    vendor2 = Vendor.new("yummy sh")
+    vendor3 = Vendor.new("Rocky Mountain rotten")
     item1 = Item.new({name: 'Peach', price: "$0.75"})
     item2 = Item.new({name: 'Tomato', price: "$0.50"})
     item3 = Item.new({name: "Peach-Raspberry Nice Cream", price: "$5.30"})
@@ -50,7 +53,7 @@ class VendorTest < Minitest::Test
     vendor2.stock(item3, 25)
     vendor3 = Vendor.new("Palisade Peach Shack")
     vendor3.stock(item1, 65)
-    
+
     assert_equal 29.75, vendor1.potential_revenue
     assert_equal 345.00, vendor2.potential_revenue
     assert_equal 48.75, vendor3.potential_revenue

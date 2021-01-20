@@ -63,18 +63,26 @@ class MarketTest < Minitest::Test
     @market.add_vendor(@vendor2)
     @market.add_vendor(@vendor3)
     expected = {@item1 => {quantity: 100,
-                          vendors: [@vendor1, @vendor3]
+                          vendors: [@vendor1.name, @vendor3.name]
                           },
               @item2 => {quantity: 7,
-                          vendors: [@vendor1]
+                          vendors: [@vendor1.name]
                           },
               @item3 => {quantity: 25,
-                          vendors: [@vendor2]
+                          vendors: [@vendor2.name]
                           },
               @item4 => {quantity: 50,
-                          vendors: [@vendor2]
+                          vendors: [@vendor2.name]
                           }}
     assert_equal expected, @market.total_inventory
   end
+
+  def test_it_can_tell_if_item_is_overstocked
+    assert_equal [@item3], @market.overstocked
+
+    @vendor2.stock(@item4, 1)
+    assert_equal [@item3, @item4], @market.overstocked
+  end
+
 
 end

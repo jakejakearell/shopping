@@ -28,4 +28,8 @@ class Vendor
       (item.price * quantity)
     end
   end
+
+  def inventory_includes?(item)
+    @inventory.include? item
+  end
 end

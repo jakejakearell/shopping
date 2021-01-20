@@ -51,9 +51,30 @@ class MarketTest < Minitest::Test
     assert_equal [@vendor2], @market.vendors_that_sell(@item4)
   end
 
-  def test_potential_revenue
-    assert_equal 29.75, @vendor1.potential_revenue
-    assert_equal 345.00, @vendor2.potential_revenue 
-    assert_equal 48.75, @vendor3.potential_revenue
+  def test_it_can_sort_items
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    assert_equal ["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"], @market.sorted_item_list
   end
+
+  def test_it_can_test_total_inventory
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    expected = {@item1 => {quantity: 100,
+                          vendors: [@vendor1, @vendor3]
+                          },
+              @item2 => {quantity: 7,
+                          vendors: [@vendor1]
+                          },
+              @item3 => {quantity: 25,
+                          vendors: [@vendor2]
+                          },
+              @item4 => {quantity: 50,
+                          vendors: [@vendor2]
+                          }}
+    assert_equal expected, @market.total_inventory
+  end
+
 end
